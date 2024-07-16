@@ -2,31 +2,35 @@ import axios from "axios";
 import { apiKey, apiUrl } from '../config.js';
 
 class MegaventoryService {
-  async updateProduct(product) {
-    const url = apiUtil.buildUrl(apiUrl, '/json/reply/ProductUpdate');
+  async addProduct(product) { 
+    const url = this.buildUrl(apiUrl, '/Product/ProductUpdate');
     const payload = {
       APIKEY: apiKey,
-      mvProduct: product
+      ...product
     };
     return await axios.post(url, payload);
   }
 
-  async updateSupplierClient(supplierClient) {
-    const url = apiUtil.buildUrl(apiUrl, '/json/reply/SupplierClientUpdate');
+  async addSupplierClient(supplierClient) {
+    const url = this.buildUrl(apiUrl, '/SupplierClient/SupplierClientUpdate');
     const payload = {
       APIKEY: apiKey,
-      mvSupplierClient: supplierClient
+      ...supplierClient
     };
     return await axios.post(url, payload);
   }
 
-  async updateInventoryLocation(inventoryLocation) {
-    const url = apiUtil.buildUrl(apiUrl, '/json/reply/InventoryLocationUpdate');
+  async addInventoryLocation(inventoryLocation) {
+    const url = this.buildUrl(apiUrl, '/InventoryLocation/InventoryLocationUpdate');
     const payload = {
       APIKEY: apiKey,
-      mvInventoryLocation: inventoryLocation
+      ...inventoryLocation
     };
     return await axios.post(url, payload);
+  }
+
+  buildUrl(baseUrl, endpoint) {
+    return `${baseUrl}${endpoint}`;
   }
 }
 
